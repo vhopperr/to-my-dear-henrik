@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To: my dear Henrik</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍓</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', BlinkMacSystemFont;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 80px;
+            min-height: 100vh;
+            margin: 0;
+            background-image: url('arkaplan.jpg'); 
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .main-panel {
+            background-color: rgba(245, 240, 235, 0.2);
+            backdrop-filter: blur(8px) sepia(50%) hue-rotate(-10deg) saturate(80%);
+            -webkit-backdrop-filter: blur(8px) sepia(50%) hue-rotate(-10deg) saturate(80%);
+            background-image: linear-gradient(rgba(255,255,255,0.07) 50%, rgba(0,0,0,0.07) 50%);
+            background-size: 100% 4px;
+            height: auto;
+            padding: 20px 40px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 450px;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-sizing: border-box;
+            margin: 20px auto;
+            position: relative;
+        }
+
+        .image-stack {
+            position: relative;
+            width: 100%;
+            max-width: 350px;
+            margin: 20px auto;
+            cursor: pointer;
+        }
+
+        .top-picture {
+            width: 100%;
+            height: auto;
+            display: block;
+            z-index: 1;
+            filter: drop-shadow(0 8px 15px rgba(0,0,0,0.4));
+            margin-bottom: 30px;
+        }
+
+        .middle-layer {
+            position: absolute;
+            top: 40px;
+            left: 20px;
+            width: 100%;
+            height: auto;
+            display: block;
+            z-index: 2;
+            transform: translateY(0) scale(0.6) rotate(-18deg);
+            filter: drop-shadow(0 0 0 rgba(0,0,0,0));
+            transition: top 1.8s cubic-bezier(0.22, 1, 0.36, 1),
+                        transform 1.8s cubic-bezier(0.22, 1, 0.36, 1),
+                        filter 1.8s ease;
+        }
+
+        /* Dışarı çıktığında (frontReveal ve backHide esnasında) zarfın önüne geçmesi için */
+        .middle-layer.outside {
+            z-index: 10;
+        }
+
+        .envelope_layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: auto;
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        .bow {
+            position: absolute;
+            transform: scale(0.7) rotate(-18deg);
+            width: 100%;
+            z-index: 4;
+            top: 50%;
+            left: 3%;
+        }
+
+        .music-player {
+            background: linear-gradient(135deg, #9BB0C1, #DCA442);
+            padding: 20px;
+            border-radius: 20px;
+            width: 260px;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-top: 20px;
+        }
+        
+        .track-art {
+            width: 200px;
+            height: 200px;
+            background: #475569;
+            margin: 0 auto 12px auto;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            background-image: url('cover.webp'); 
+            background-size: cover; 
+        }
+
+        .track-name {
+            font-size: 1.15rem;
+            color: #1E1E24;
+            font-weight: bold;
+            margin: 4px 0 2px 0;
+            text-align: left;
+        }
+
+        .artist-name {
+            font-size: 0.85rem;
+            color: #4A6275;
+            margin-bottom: 12px;
+            text-align: left;
+        }
+
+        .star {
+            position: absolute;
+            top: 150px;
+            left: -300px;
+            transform: scale(0.2) rotate(18deg);
+        }
+
+        .stars {
+            position: absolute;
+            top: 20px;
+            left: 0;
+            transform: scale(0.3);
+        }
+
+        audio {
+            width: 100%;
+            border-radius: 30px;
+            filter: invert(6%) sepia(11%) saturate(366%) opacity(0.85);
+        }
+
+        .letter-window {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 220px;   
+            overflow: hidden;
+            z-index: 2;
+        }
+
+        .bounce {
+            animation: bounce 2.5s infinite ease-in-out;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0) scale(0.6) rotate(-18deg); }
+            50% { transform: translateY(-10px) scale(0.6) rotate(-18deg); }
+        }
+
+        /* --- ANİMASYONLAR --- */
+        @keyframes slideOut {
+            from { transform: translateX(0) translateY(0) rotate(-18deg) scale(0.6); }
+            to { transform: translateX(-90px) translateY(-320px) rotate(-18deg) scale(0.6); }
+        }
+
+        @keyframes frontReveal {
+            0% { transform: translateX(-90px) translateY(-320px) rotate(-18deg) scale(0.6); }
+            40% { transform: translateX(-30px) translateY(-180px) rotate(-10deg) scale(0.7); }
+            70% { transform: translateX(0px) translateY(-140px) rotate(-4deg) scale(0.7); }
+            100% { transform:  translateX(-20px) translateY(-100px) rotate(0deg) scale(0.8); }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(-90px) translateY(-320px) rotate(-18deg) scale(0.6); }
+            to { transform: translateX(0) translateY(0) rotate(-18deg) scale(0.6); }
+        }
+
+        @keyframes backHide {
+            0% { transform: translateX(-20px) translateY(-100px) rotate(0deg) scale(0.8); }
+            30% { transform: translateX(0px) translateY(-140px) rotate(-4deg) scale(0.7); }
+            60% { transform: translateX(-30px) translateY(-180px) rotate(-10deg) scale(0.7); }
+            100% { transform: translateX(-90px) translateY(-320px) rotate(-18deg) scale(0.6); }
+        }
+        /* Mobil Ekranlar İçin Ayarlamalar (Maksimum 480px) */
+        @media screen and (max-width: 480px) {
+            .letter-window {
+        /* Mobil ekranlarda pencere yüksekliğini kısaltarak taşmayı engelliyoruz */
+                height: 48%; 
+            }
+    
+            .middle-layer {
+        /* Mektubu mobilde biraz daha yukarıda başlatıyoruz */
+                top: 15%; 
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="main-panel">
+    <img src="star.png" style="position: absolute; transform: scale(0.2) rotate(18deg); top: 15%; left: -90%;" alt="star">
+<img src="starss.png" style="position: absolute; transform: scale(0.3); top: -5%; left: -20%;" alt="stars">
+    <div class="image-stack" id="envelope">
+        <img src="envelope_open.png" alt="Bottom Envelope" class="top-picture">
+        
+        <div class="letter-window" id="window">
+            <img src="mainp.png" class="middle-layer bounce" alt="Letter" id="letter">
+         </div>
+         
+        <img src="envelope.png" alt="Top Envelope" class="envelope_layer">
+        <img src="bow.png" class="bow" alt="Bow">
+    </div>
+
+    <div class="music-player">
+        <div class="track-art"></div>
+        <div class="track-name">Million Dollar Man</div>
+        <div class="artist-name">Lana Del Rey</div>
+        <audio controls src="million_dollar_man.mp3"></audio>
+    </div>
+
+    <script>
+        const envelope = document.getElementById("envelope");
+        const letterWindow = document.getElementById("window");
+        const letter = document.getElementById("letter");
+        let isOpening = false; 
+
+        envelope.addEventListener("click", () => {
+            if (isOpening) return; 
+
+            isOpening = true;
+
+            if (!envelope.classList.contains("open")) {
+                // --- AÇILMA SÜRECİ ---
+                envelope.classList.add("open");
+                letter.classList.remove("bounce");
+                
+                // 1. Adım: Pencerenin içindeyken yukarı fırlatıyoruz (Zarfın arkasında kalıyor)
+                letter.style.animation = "slideOut 1.2s forwards";
+
+                setTimeout(() => {
+                    // 2. Adım: Tam yukarı ulaştığı an (1.2s sonra) 
+                    // Mektubu letter-window'dan çıkarıp doğrudan 'envelope' divine taşıyoruz!
+                    envelope.appendChild(letter); 
+                    letter.classList.add("outside"); // z-index'ini 10 yapar
+                    
+                    // frontReveal animasyonunu başlatıyoruz (Zarfın önünde aşağı iniyor)
+                    letter.style.animation = "frontReveal 1.2s forwards";
+                    
+                    setTimeout(() => { isOpening = false; }, 1200);
+                }, 1200);
+
+            } else {
+                // --- KAPANMA SÜRECİ ---
+                // 1. Adım: Dışarıdayken (Zarfın önündeyken) yukarı fırlatıyoruz (backHide)
+                letter.style.animation = "backHide 1.2s forwards";
+
+                setTimeout(() => {
+                    // 2. Adım: Tam yukarı ulaştığı an (1.2s sonra)
+                    // Mektubu tekrar letter-window kutusunun İÇİNE geri sokuyoruz!
+                    letterWindow.appendChild(letter);
+                    letter.classList.remove("outside"); // z-index'i tekrar normale döner
+                    envelope.classList.remove("open"); 
+                    
+                    // slideIn animasyonunu başlatıyoruz (Zarfın arkasından içeri giriyor)
+                    letter.style.animation = "slideIn 1.2s forwards";
+                    
+                    setTimeout(() => {
+                        letter.classList.add("bounce"); 
+                        isOpening = false;
+                    }, 1200);
+                }, 1200);
+            }
+        });
+    </script>
+</div>
+</body>
+</html>
